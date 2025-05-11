@@ -1,0 +1,100 @@
+AI Futures Bot Roadmap (BTC/SOL, Bybit, GPT-4 + TimeGPT)
+
+Goal: Build a precision AI bot using GPT-4 + TimeGPT with 80%+ prediction or win accuracy before going live.
+
+Week 1: Foundation + Tooling
+
+Objective: Set up your environment, data pipeline, and modeling interface
+
+Tasks:
+ • Set up development stack
+ • Python 3.10+
+ • Jupyter or VSCode
+ • Install key libraries: ccxt, TA-Lib, pandas-ta, openai, requests, websockets, etc.
+ • Integrate Bybit API
+ • Use REST for historical OHLCV
+ • Use WebSockets for live data
+ • Create basic TA engine
+ • Calculate RSI, MACD, EMA, Bollinger Bands, etc.
+ • Save structured TA output per candle
+ • Get TimeGPT API access (Nixtla)
+ • Test basic price forecasting with dummy OHLCV
+
+Deliverable:
+ • Working data feed from Bybit
+ • TA indicator generator
+ • First TimeGPT forecast output in notebook or script
+
+Week 2: GPT-4 Signal System
+
+Objective: Use GPT-4 to evaluate TA + forecasts and generate trade decisions
+
+Tasks:
+ • Design a data schema to feed GPT-4:
+
+{
+  "pair": "BTCUSDT",
+  "timeframe": "5m",
+  "price": 61850,
+  "forecast_next_5m": 62100,
+  "indicators": {
+    "RSI": 71.3,
+    "MACD": {"histogram": 180, "signal": 175},
+    "EMA20": 61500,
+    "EMA50": 61000,
+    "ATR": 180
+  },
+  "trend": "Uptrend",
+  "volume_spike": true,
+  "candle_pattern": "Bullish Engulfing"
+}
+
+ • Build GPT-4 prompt loop:
+ • Feed TA + forecast + context into prompt
+ • Ask for: entry, confidence (0–100%), SL/TP levels
+ • Store GPT-4 responses + predictions in a local database (SQLite or Postgres)
+
+Deliverable:
+ • Script that takes real-time TA + forecast, gets trade recommendation from GPT-4
+
+Week 3: Backtesting + Paper Trade Engine
+
+Objective: Validate system decisions on historical and live data
+
+Tasks:
+ • Implement a simple backtester
+ • Use historical OHLCV
+ • Feed data as if live to GPT-4 + TimeGPT
+ • Evaluate accuracy, win rate, risk/reward
+ • Set up paper trading mode using Bybit testnet
+ • Log positions, PnL, SL/TP hits
+ • Build metrics dashboard (plot win %, avg RR, hit rate)
+
+Deliverable:
+ • Paper trading bot that runs live and logs performance metrics
+
+Week 4: Refinement + Automation
+
+Objective: Tune the model, reduce bad trades, and set up alerting
+
+Tasks:
+ • Analyze results:
+ • Why did some trades fail? Overconfidence? SL too tight?
+ • Adjust prompts or TA logic accordingly
+ • Add filtering:
+ • Only enter trades where GPT-4 confidence > 85% and forecast agrees
+ • Require signal confluence (e.g., RSI + MACD + forecast + price level)
+ • Automate signal notifications (Telegram, Discord, or dashboard)
+ • Prepare for scaling (multi-timeframe logic, more robust logging)
+
+Deliverable:
+ • Self-contained decision system ready for forward-testing
+ •  80% win rate or prediction accuracy achieved in paper tests
+
+Post-Roadmap: Go/No-Go Decision
+ • If >80% win rate or strong prediction edge:
+ • Gradually test with small real capital
+ • Add capital scaling and position sizing logic
+ • If not:
+ • Analyze weak points, retrain prompts, adjust filters
+ • Collect 1000+ more paper trades before retrying live

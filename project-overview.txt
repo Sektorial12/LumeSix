@@ -1,0 +1,31 @@
+Project Overview – AI Futures Trading Bot
+
+Goal
+
+Develop a high-precision AI-powered trading bot that executes or signals futures trades on BTC or SOL using GPT-4 for trade evaluation and TimeGPT for short-term market forecasting.
+
+The bot will only go live once it achieves a consistent >80% win rate or prediction accuracy during forward-testing (paper trading) on Bybit.
+
+Key Components
+ • Platform: Bybit (Testnet → Live)
+ • Assets: BTC/USDT or SOL/USDT (1–2 pairs only)
+ • AI Decision Engine: GPT-4-Turbo via OpenAI API
+ • Forecasting Model: TimeGPT (via Nixtla API)
+ • Technical Analysis: TA-Lib / pandas-ta (RSI, MACD, EMAs, etc.)
+ • Execution Logic: Python-based bot with WebSocket streaming + REST control
+ • Confidence Control: Only trade when model confidence > 80–85%
+ • Backtesting Mode: Historical replay of OHLCV + GPT-4 + forecast
+ • Paper Trading Mode: Full system simulated on Bybit Testnet
+
+Success Criteria
+ • 80%+ win rate over at least 500 paper trades
+ • Model precision in identifying high-confluence entry/exit setups
+ • Robust TA + forecast-driven entry logic
+ • Error handling, stop-loss, and take-profit automation
+ • Scalable to more pairs or timeframes later
+
+Stretch Goals
+ • Telegram/Discord alerts
+ • Dynamic position sizing based on forecast confidence
+ • Real-time PnL tracking and risk management dashboard
+ • Eventually add a supervised learning model to improve long-term strategy evolution
