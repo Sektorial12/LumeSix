@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Docker specific files (they are used to build, not part of the image content)
+Dockerfile
+.dockerignore
+
+# Python virtual environment folders
+.venv
+venv/
+env/
+ENV/
+
+# Python cache files
+*.pyc
+__pycache__/
+
+# IDE / Editor specific directories
+.vscode/
+.idea/
+*.project
+*.sublime-project
+*.sublime-workspace
+
+# Local secrets, logs, and specific user files
+.env
+*.env
+*.log
+lumesix_bot.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Build artifacts / distribution folders
+dist/
+build/
+*.egg-info/

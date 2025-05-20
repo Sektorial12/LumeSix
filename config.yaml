@@ -1,0 +1,72 @@
+# LumeSix AI Trading Bot Configuration
+# Strategy Parameters (User-configurable)
+
+trading:
+  symbol: "BTC/USDT:USDT"                 # Default trading pair
+  timeframe_execution: 5m         # Primary execution timeframe (e.g., 3m, 5m, 15m)
+  timeframe_trend: 1h             # Higher timeframe for trend context
+  candles_limit: 40
+  max_historical_candles: 1000
+  min_data_points_for_forecast: 50
+
+strategy:
+  target_gain_percent: 2.0        # Target profit per trade (%)
+  stop_loss_percent: 0.5        # Max loss per trade (%)
+  leverage: 50                    # Default leverage (e.g., 5, 10, 15)
+  max_daily_trades: 15            # Limit on the number of trades per day
+  # Minimum confidence score (0-100) from GPT-4 required to consider a trade
+  min_confidence_threshold: 80
+  # Amount of USDT to use for each trade (approximate for market orders)
+  order_size_usdt: 200 
+  # Confluence settings (Enable/disable specific checks)
+  require_timegpt_trend_alignment: true # Bypass TimeGPT check for now
+  require_ta_confirmation: true # Set to false to bypass TA checks for now
+  # Dynamic TP/SL using ATR
+  use_atr_tp_sl: true             # Set to true to use ATR for TP/SL, false for percentage-based
+  atr_tp_multiplier: 2.0          # e.g., 1.5 means TP is 1.5 * ATR away
+  atr_sl_multiplier: 1.0          # e.g., 1.0 means SL is 1.0 * ATR away
+
+  # Macro Trend Filter Settings
+  require_macro_trend_alignment: true  # User's desired setting to allow trades
+  macro_trend_timeframe: '4h'          # Timeframe for macro trend (e.g., 1h, 4h, 1d)
+  macro_ema_period: 200                # EMA period for macro trend
+
+  # Technical Analysis Confirmation Rules
+  ta_confirmation_rules:
+    # RSI thresholds and enabled status
+    rsi_enabled: true
+    rsi_buy_threshold: 30    # For BUY: RSI < rsi_buy_threshold (oversold)
+    rsi_sell_threshold: 50   # For SELL: RSI > rsi_sell_threshold (overbought)
+
+    # MACD confirmation enabled status
+    macd_enabled: true       # For BUY: MACD line crosses above Signal line; For SELL: MACD line crosses below Signal line
+
+    # EMA confirmation enabled status and EMA choice
+    ema_enabled: true
+    # Options for 'ema_to_check': 'short_period_ema', 'long_period_ema' (refers to technical_analysis.emas keys)
+    # Condition for BUY: close > selected_ema; Condition for SELL: close < selected_ema
+    ema_to_check_buy: 'short_period_ema'
+    ema_to_check_sell: 'short_period_ema'
+
+technical_analysis:
+  rsi:
+    length: 14
+  macd:
+    fast_period: 12
+    slow_period: 26
+    signal_period: 9
+  emas:
+    short_period: 20 # Name used in ta_confirmation_rules (e.g., 'short_period_ema')
+    long_period: 50  # Name used in ta_confirmation_rules (e.g., 'long_period_ema')
+  atr:
+    length: 14       # Length for ATR calculation (used by add_indicators and dynamic TP/SL)
+
+# --- Internal Settings (Less frequently changed) ---
+api:
+  initial_fetch_limit: 200        # Number of candles to fetch on startup
+  forecast_horizon: 12            # Number of future periods for TimeGPT to predict
+  max_data_length: 500            # Max number of historical candles to keep in memory
+  loop_sleep_seconds: 60          # Pause between main loop iterations
+
+logging:
+  level: INFO                     # Logging level (DEBUG, INFO, WARNING, ERROR)
