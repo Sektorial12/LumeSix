@@ -40,8 +40,8 @@ def get_bybit_client(testnet=BYBIT_TESTNET):
                     Returns None if API keys are not configured.
     """
     if not BYBIT_API_KEY or not BYBIT_API_SECRET:
-        logger.error("Error: Bybit API Key or Secret is not configured in .env file.")
-        logger.info("Please ensure BYBIT_API_KEY and BYBIT_API_SECRET are set.")
+        logger.error("Error: Bybit API Key or Secret not found or not configured. Check environment variables and config.")
+        logger.info("Please ensure BYBIT_API_KEY and BYBIT_API_SECRET are available to the application.")
         return None
 
     exchange_config = {

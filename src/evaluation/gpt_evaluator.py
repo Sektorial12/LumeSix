@@ -1,17 +1,11 @@
 import os
 import pandas as pd
-from dotenv import load_dotenv
 from openai import OpenAI, OpenAIError
 import logging
 
 # --- Setup Logger ---
 logger = logging.getLogger(__name__)
 # --- End Logger Setup ---
-
-# Load environment variables
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-dotenv_path = os.path.join(project_root, '.env')
-load_dotenv(dotenv_path)
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 

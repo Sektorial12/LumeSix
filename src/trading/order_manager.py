@@ -1,13 +1,4 @@
 import os
-# --- Load .env early ---
-from dotenv import load_dotenv
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-dotenv_path = os.path.join(project_root, '.env')
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path=dotenv_path)
-else:
-    print(f"WARNING: .env file not found at {dotenv_path}. Environment variables for Telegram might not be loaded.")
-# --- End Load .env early ---
 
 import ccxt.async_support as ccxt
 import logging

@@ -1,17 +1,10 @@
 import os
 import pandas as pd
-from dotenv import load_dotenv
 from nixtla import NixtlaClient
 import logging
 
 # --- Setup Logger ---
 logger = logging.getLogger(__name__)
-
-# Load environment variables from .env file
-# Ensure .env is in the project root (lumesix)
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-dotenv_path = os.path.join(project_root, '.env')
-load_dotenv(dotenv_path)
 
 NIXTLA_API_KEY = os.getenv('NIXTLA_API_KEY')
 
@@ -20,7 +13,6 @@ def get_timegpt_client():
     """Initializes and returns the TimeGPT client."""
     if not NIXTLA_API_KEY:
         logger.error("Error: NIXTLA_API_KEY not found in environment variables.")
-        logger.info(f"Looked for .env at: {dotenv_path}")
         return None
     try:
         logger.info("Initializing Nixtla client...")
